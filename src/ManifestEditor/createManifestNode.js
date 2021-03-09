@@ -2,6 +2,8 @@
 export function createManifestNode(){
     return {
         hidden: false, 
-        children: {}
+        children: {},
+        variables: [],
+        type: null
     }
 }

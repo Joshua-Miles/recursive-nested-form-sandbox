@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { Select } from './Select'
 import { createManifestNode } from './createManifestNode'
 import { when } from './utils'
+import { ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
+import { FolderIcon } from "@material-ui/icons";
+
+
 
 export function FilePane({ files, manifest, activeNode, onChange, onSelectActiveNode }) {
 
@@ -60,24 +64,31 @@ export function FilePane({ files, manifest, activeNode, onChange, onSelectActive
       <div>
         <ul>
           {nodeChildNames.map(childName => (
-            <li
-              key={childName}
-              style={{
-                fontWeight: selectedChildNode === childName ? 'bold' : 'normal',
-                border: activeNode === manifest[childName] ? '1px solid gold' : undefined
-              }}
-              onClick={() => handleSelect(childName)}
-            >
-              {childName}
-            </li>
+            <ListItem>
+              <ListItemIcon>
+              <FolderIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Single-line item"
+            />
+          </ListItem>
+          //  <li
+          //     key={childName}
+          //     style={{
+          //       fontWeight: selectedChildNode === childName ? 'bold' : 'normal',
+          //       border: activeNode === manifest[childName] ? '1px solid gold' : undefined
+          //     }}
+          //     onClick={() => handleSelect(childName)}
+          //   >
+          //     {childName}
+          //   </li>
           ))}
           {when(isAddingChild, () => (
-            <Select options={fileNames} onSelect={handleAdd} />
+            <Select style={{ color: 'white' }}
+              options={fileNames} onSelect={handleAdd} />
           ))}
           {when(fileNames.length > 0, () => (
-            <button onClick={() => setIsAddingChild(true)}>
-              +
-            </button>
+            <Button variant="contained" onClick={() => setIsAddingChild(true)}>+</Button>
           ))}
         </ul>
       </div>
