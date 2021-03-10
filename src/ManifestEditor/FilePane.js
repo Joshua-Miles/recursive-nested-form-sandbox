@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Select } from './Select'
 import { createManifestNode } from './createManifestNode'
 import { when } from './utils'
-import { ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
-import { FolderIcon } from "@material-ui/icons";
+import { ListItem, ListItemText, Button } from '@material-ui/core';
 
 
 
@@ -61,34 +60,28 @@ export function FilePane({ files, manifest, activeNode, onChange, onSelectActive
 
   return (
     <>
-      <div>
+      <div style={{borderLeft: '1px solid #9A9A9A', marginLeft: '13px' }}>
         <ul>
           {nodeChildNames.map(childName => (
-            <ListItem>
-              <ListItemIcon>
-              <FolderIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary="Single-line item"
-            />
-          </ListItem>
-          //  <li
-          //     key={childName}
-          //     style={{
-          //       fontWeight: selectedChildNode === childName ? 'bold' : 'normal',
-          //       border: activeNode === manifest[childName] ? '1px solid gold' : undefined
-          //     }}
-          //     onClick={() => handleSelect(childName)}
-          //   >
-          //     {childName}
-          //   </li>
+            <ListItem
+              key={childName}
+              style={{
+                backgroundColor: selectedChildNode === childName ? 'dodgerBlue' : 'transparent',
+                border: activeNode === manifest[childName] ? '3px solid gold' : undefined
+              }}
+              onClick={() => handleSelect(childName)}>
+
+              <ListItemText
+                primary={childName}
+              />
+            </ListItem>
           ))}
           {when(isAddingChild, () => (
             <Select style={{ color: 'white' }}
               options={fileNames} onSelect={handleAdd} />
           ))}
           {when(fileNames.length > 0, () => (
-            <Button variant="contained" onClick={() => setIsAddingChild(true)}>+</Button>
+            <Button size="small" variant="contained" onClick={() => setIsAddingChild(true)}>+</Button>
           ))}
         </ul>
       </div>
